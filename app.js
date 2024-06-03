@@ -4,9 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require("express-session")
+var flash = require("connect-flash")
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var mainRouter = require('./routes/main');
 
 var app = express();
 
@@ -21,6 +23,9 @@ app.use(session({
   secret: 'hellohola'
 }))
 
+// Flash used 
+app.use(flash())
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -29,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/main', mainRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

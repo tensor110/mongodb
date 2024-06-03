@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const userModel  = require("./users");
+const studentModel  = require("./students");
 const { Cookie } = require('express-session');
 
 router.get('/', function(req, res) {
@@ -75,5 +76,17 @@ router.get('/deletecookie', function(req, res) {
   res.render('Cookie Destroyed')
 });
 
+
+
+// Flash Message 
+router.get('/flash', function(req, res) {
+  req.flash("age", 21)
+  req.flash("name", "mahes")
+  res.send("Flash Message sent")
+});
+router.get('/checkflash', function(req, res) {
+  console.log(req.flash("age"), req.flash("name"))
+  res.send("Flash Message Checked")
+});
 
 module.exports = router;
